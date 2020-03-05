@@ -94,4 +94,4 @@ individual_df = pd.DataFrame(individual_dict, columns=["id", "name", "born_immun
 # print(individual_dict["dead"][:10])
 # print(individual_df.head(10))
 
-individual_df.to_csv("%s.csv" % filename)
+individual_df.to_csv("E:/PythonScripts/CellularAutomata/code/%s.csv" % filename)
