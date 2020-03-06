@@ -6,9 +6,17 @@ import sys
 filename = sys.argv[1]
 size = int(sys.argv[2])
 
-individual_dict = {"id": [], "name": [], "born_immunity_integrity": [], "attained_immunity_debuff": [], "healthy_eater": [], "smoker": [], "drinker": [], "infected": [], "quarantined": [], "dead": []}
+individual_dict = {"id": [], "name": [], "population_density60": [], "population_density25": [], "population_density15": [], "born_immunity_integrity": [], "attained_immunity_debuff": [], "healthy_eater": [], "smoker": [], "drinker": [], "infected": [], "quarantined": [], "dead": []}
 
 alphalist = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+
+sixtypercent = False
+twentyfpercent = False
+fifteenpercent = False
+
+scounter = 0
+tcounter = 0
+fcounter = 0
 
 
 def id_generation():
@@ -66,6 +74,9 @@ def drinking_habit_generator():
 for x in range(size):
 	individual_dict["name"].append(name_generation())
 	individual_dict["id"].append(id_generation())
+	individual_dict["population_density60"].append(False)
+	individual_dict["population_density25"].append(False)
+	individual_dict["population_density15"].append(False)
 	individual_dict["born_immunity_integrity"].append(immune_def_born())
 	individual_dict["attained_immunity_debuff"].append(0)
 	individual_dict["healthy_eater"].append(eating_habits_generator())
@@ -79,7 +90,44 @@ ind = individual_dict["born_immunity_integrity"].index(min(individual_dict["born
 individual_dict["infected"][ind] = 1
 
 
-individual_df = pd.DataFrame(individual_dict, columns=["id", "name", "born_immunity_integrity", "attained_immunity_debuff", "healthy_eater", "smoker", "drinker", "infected", "quarantined", "dead"])
+while not sixtypercent:
+	for i in range(size):
+		if individual_dict["population_density60"][i] != True:
+			if random.randint(1, 100) <= 25:
+				#print("here")
+				individual_dict["population_density60"][i] = True
+				scounter += 1
+
+		if scounter >= (size * .6):
+			sixtypercent = True
+			break
+
+
+while not twentyfpercent:
+	for i in range(size):
+		if individual_dict["population_density60"][i] != True and individual_dict["population_density25"][i] !=True:
+			if random.randint(1, 100) <= 25:
+				#print("here")
+				individual_dict["population_density25"][i] = True
+				tcounter += 1
+
+		if tcounter >= (size * .25):
+			twentyfpercent = True
+			break 
+
+while not fifteenpercent:
+	for i in range(size):
+		if individual_dict["population_density60"][i] != True and individual_dict["population_density25"][i] !=True and individual_dict["population_density15"][i] != True:
+			if random.randint(1, 100) <= 25:
+				#print("here")
+				individual_dict["population_density15"][i] = True
+				fcounter += 1
+
+		if fcounter >= (size * .15):
+			fifteenpercent = True
+			break
+
+individual_df = pd.DataFrame(individual_dict, columns=["id", "name", "population_density60", "population_density25", "population_density15", "born_immunity_integrity", "attained_immunity_debuff", "healthy_eater", "smoker", "drinker", "infected", "quarantined", "dead"])
 
 # debug wall 
 # print(individual_dict["id"][:10])
@@ -94,4 +142,8 @@ individual_df = pd.DataFrame(individual_dict, columns=["id", "name", "born_immun
 # print(individual_dict["dead"][:10])
 # print(individual_df.head(10))
 
-individual_df.to_csv("E:/PythonScripts/CellularAutomata/code/%s.csv" % filename)
+
+
+
+
+individual_df.to_csv("E:/PythonScripts/CellularAutomata/code/population_data/%s.csv" % filename)
