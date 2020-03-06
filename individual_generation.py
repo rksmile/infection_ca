@@ -146,4 +146,4 @@ individual_df = pd.DataFrame(individual_dict, columns=["id", "name", "population
 
 
 
-individual_df.to_csv("E:/PythonScripts/CellularAutomata/code/population_data/%s.csv" % filename)
+individual_df.to_csv("population_data/%s.csv" % filename)
