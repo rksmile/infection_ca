@@ -204,7 +204,7 @@ coordinate_gen(s_p, t_p, f_p, size)
 
 individual_df = pd.DataFrame(individual_dict, columns=["id", "coord", "name", "population_density60", "population_density25", "population_density15", "born_immunity_integrity", "attained_immunity_debuff", "healthy_eater", "smoker", "drinker", "infected", "quarantined", "dead"])
 
-individual_df.to_csv("E:/PythonScripts/CellularAutomata/code/population_data/%s.csv" % filename)
+individual_df.to_csv("%s.csv" % filename)
 
 end = datetime.datetime.now()
 elapsed = end - start
